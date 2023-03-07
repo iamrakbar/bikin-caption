@@ -203,14 +203,14 @@ export default function Home() {
                     className='rounded-md border border-transparent bg-cyan-600 py-2 px-4 text-base font-medium text-white enabled:hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 disabled:opacity-75'
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Bentar, mikir dulu... ⏳' : 'Gas Keun! 🤖'}
+                    {isSubmitting ? 'Memproses... ⏳' : 'Gas Keun! 🤖'}
                   </button>
                 </div>
               </form>
             </div>
           </div>
           <p className='mt-4 text-sm text-center text-slate-500'>
-            Created with ❤️ by{' '}
+            Crafted with ❤️ by{' '}
             <a
               href='https://twitter.com/rakbar'
               target='_blank'
@@ -230,7 +230,7 @@ export default function Home() {
             </a>
             . Powered by{' '}
             <a
-              href='https://platform.openai.com/overview'
+              href='https://openai.com'
               target='_blank'
               rel='noopener noreferrer'
               className='text-cyan-600 hover:underline'
@@ -268,9 +268,12 @@ export default function Home() {
                 <Dialog.Panel className='w-full max-w-lg transform overflow-hidden rounded-2xl bg-white p-10 text-left align-middle shadow-xl transition-all border-gray-50 border-4'>
                   <Dialog.Title
                     as='h2'
-                    className='text-2xl font-bold tracking-tight text-slate-700'
+                    className='text-center text-2xl font-bold tracking-tight text-slate-700'
                   >
-                    Caption berhasil dibikin! 🤩🥳🎉
+                    <span className='block text-3xl lg:text-5xl mb-4'>
+                      🤩🥳🎉
+                    </span>{' '}
+                    Caption berhasil dibikin!
                   </Dialog.Title>
 
                   <div className='relative mt-4 flex rounded-xl border border-slate-600/10 bg-teal-50 p-6'>
@@ -283,10 +286,10 @@ export default function Home() {
                     Langsung copas kuy
                   </h3>
 
-                  <div className='mt-6'>
+                  <div className='mt-6 flex items-center justify-center'>
                     <button
                       type='button'
-                      className='rounded-md border border-transparent bg-cyan-600 py-2 px-4 text-base font-medium text-white enabled:hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 disabled:opacity-75'
+                      className='w-full rounded-md border border-transparent bg-cyan-600 py-2 px-4 text-base font-medium text-white enabled:hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 disabled:opacity-75'
                       onClick={closeModal}
                     >
                       Ok, Sip! 👍
