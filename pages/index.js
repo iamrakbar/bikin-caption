@@ -209,6 +209,35 @@ export default function Home() {
               </form>
             </div>
           </div>
+          <p className='mt-4 text-sm text-center text-slate-500'>
+            Created with ❤️ by{' '}
+            <a
+              href='https://twitter.com/rakbar'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='text-cyan-600 hover:underline'
+            >
+              @rakbar
+            </a>{' '}
+            and{' '}
+            <a
+              href='https://twitter.com/atlas45_'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='text-cyan-600 hover:underline'
+            >
+              @atlas45_
+            </a>
+            . Powered by{' '}
+            <a
+              href='https://platform.openai.com/overview'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='text-cyan-600 hover:underline'
+            >
+              OpenAI
+            </a>
+          </p>
         </main>
       </div>
       <Transition appear show={isOpen} as={Fragment}>
