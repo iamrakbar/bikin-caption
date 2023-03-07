@@ -16,22 +16,12 @@ export default async function (req, res) {
     return;
   }
 
-  const input = req.body.input || '';
-  if (input.trim().length === 0) {
-    res.status(400).json({
-      error: {
-        message: 'Inputan invalid',
-      },
-    });
-    return;
-  }
-
   try {
     const completion = await openai.createCompletion({
       model: 'text-davinci-003',
-      prompt: generatePrompt(input),
+      prompt: generatePrompt(req.body),
       temperature: 0.7,
-      max_tokens: 64,
+      max_tokens: 96,
       top_p: 1.0,
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
@@ -53,6 +43,11 @@ export default async function (req, res) {
   }
 }
 
-function generatePrompt(input) {
-  return `Buat caption TikTok dalam bahasa Indonesia dengan gaya bahasa Generasi Z dari kalimat:\n\n ${input}`;
+function generatePrompt(data) {
+  const { caption, genz, galau, target } = data;
+  return `Buat caption untuk ${
+    target === 'Apa Aja' ? 'Media Sosial' : target
+  } dalam bahasa Indonesia ${genz && 'dengan gaya bahasa Generasi Z'} ${
+    galau && 'dan kondisi hati yang galau'
+  } dari kalimat:\n\n ${caption}`;
 }
