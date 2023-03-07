@@ -16,7 +16,7 @@ export default function Home() {
   const [result, setResult] = useState();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   function closeModal() {
     setIsOpen(false);
@@ -54,10 +54,8 @@ export default function Home() {
         );
       }
       setSuccess(true);
-      setTextInput('');
       setResult(capitalizedInput + ' ' + data.result);
       setLoading(false);
-      openModal();
     } catch (error) {
       // Consider implementing your own error handling logic here
       setLoading(false);
@@ -69,6 +67,13 @@ export default function Home() {
   useEffect(() => {
     if (textInput === '') setLoading(false);
   }, [textInput, setLoading]);
+
+  useEffect(() => {
+    if (success) {
+      openModal();
+      setTextInput('');
+    }
+  }, [success]);
 
   return (
     <>
@@ -102,7 +107,7 @@ export default function Home() {
                   <div className='mt-4'>
                     <textarea
                       name='input'
-                      placeholder='Jelaskan secara singkat di sini'
+                      placeholder='Langsung aja tulis secara singkat di sini'
                       value={textInput}
                       onChange={(e) => setTextInput(e.target.value)}
                       rows='3'
@@ -110,7 +115,7 @@ export default function Home() {
                       disabled={loading}
                     ></textarea>
                     <p className='mt-2 text-sm text-gray-500'>
-                      Atau mau panjang dan lengkap juga boleh
+                      Mau panjang dan lengkap juga boleh
                     </p>
                   </div>
 
@@ -177,7 +182,7 @@ export default function Home() {
                         Lagi Galau
                       </label>
                       <p className='text-sm text-gray-500'>
-                        Cape ya? Gapapa istirahat aja 😿
+                        Cape ya? gapapa istirahat dulu aja 😿
                       </p>
                     </div>
                   </div>
