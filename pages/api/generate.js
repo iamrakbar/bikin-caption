@@ -9,8 +9,7 @@ export default async function (req, res) {
   if (!configuration.apiKey) {
     res.status(500).json({
       error: {
-        message:
-          'OpenAI API key not configured, please follow instructions in README.md',
+        message: 'OpenAI API key not configured',
       },
     });
     return;
@@ -47,7 +46,7 @@ function generatePrompt(data) {
   const { caption, genz, galau, target } = data;
   return `Buat caption untuk ${
     target === 'Apa Aja' ? 'Media Sosial' : target
-  } dalam bahasa Indonesia ${genz && 'dengan gaya bahasa Generasi Z'} ${
-    galau && 'dan kondisi hati yang galau'
+  } menggunakan bahasa Indonesia ${genz && 'dengan gaya bahasa Generasi Z'} ${
+    galau && 'dalam kondisi hati yang galau'
   } dari kalimat:\n\n ${caption}`;
 }
