@@ -3,6 +3,9 @@ import { Fragment, useEffect, useState } from 'react';
 import { Switch, Dialog, Transition } from '@headlessui/react';
 import ConfettiExplosion from 'react-confetti-explosion';
 import { useForm } from 'react-hook-form';
+import { toast, Toaster } from 'react-hot-toast';
+
+import useCopyToClipboard from '../hooks/useCopyToCLipboard';
 
 const largeProps = {
   force: 0.8,
@@ -16,6 +19,7 @@ export default function Home() {
   const [result, setResult] = useState();
   const [success, setSuccess] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [value, copy] = useCopyToClipboard();
 
   const {
     register,
@@ -62,6 +66,19 @@ export default function Home() {
     setIsOpen(true);
   }
 
+  const copyText = async (text) => {
+    const success = await copy(text);
+    if (success) {
+      toast.success('Caption berhasil di copy!', {
+        icon: '👏',
+      });
+    } else {
+      toast.error('Caption gagal di copy!', {
+        icon: '😢',
+      });
+    }
+  };
+
   useEffect(() => {
     if (success) {
       openModal();
@@ -70,6 +87,7 @@ export default function Home() {
 
   return (
     <>
+      <Toaster position='bottom-center' />
       <div className='flex min-h-screen flex-col items-center justify-center py-2'>
         {success && <ConfettiExplosion {...largeProps} />}
         <Head>
@@ -94,7 +112,6 @@ export default function Home() {
           <link rel='manifest' href='/site.webmanifest' />
         </Head>
         <main className='flex w-full flex-1 flex-col items-center justify-center px-4 lg:px-20 bg-slate-50'>
-          {/* <img src='/dog.png' className={styles.icon} /> */}
           <h1 className='text-center text-3xl font-bold tracking-tight text-slate-700'>
             ✍️ <br />
             Bikin Caption
@@ -277,14 +294,36 @@ export default function Home() {
                   </Dialog.Title>
 
                   <div className='relative mt-4 flex rounded-xl border border-slate-600/10 bg-teal-50 p-6'>
-                    <p className='text-sm leading-6 text-slate-700'>
-                      <span>{result}</span>
-                    </p>
+                    <span className='select-all text-sm leading-6 text-slate-700'>
+                      {result}
+                    </span>
                   </div>
 
-                  <h3 className='mt-2 text-sm  leading-6 text-gray-400'>
-                    Langsung copas kuy
-                  </h3>
+                  <button
+                    type='button'
+                    className='mt-2 text-sm leading-6 text-gray-400 hover:underline focus:outline-none'
+                    onClick={() => copyText(result)}
+                  >
+                    <span className='flex gap-2 items-center'>
+                      Langsung copas kuy{' '}
+                      <span>
+                        <svg
+                          xmlns='http://www.w3.org/2000/svg'
+                          fill='none'
+                          viewBox='0 0 24 24'
+                          strokeWidth={1.5}
+                          stroke='currentColor'
+                          className='w-4 h-4'
+                        >
+                          <path
+                            strokeLinecap='round'
+                            strokeLinejoin='round'
+                            d='M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 01-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 011.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-8.876a9.06 9.06 0 00-1.5-.124H9.375c-.621 0-1.125.504-1.125 1.125v3.5m7.5 10.375H9.375a1.125 1.125 0 01-1.125-1.125v-9.25m12 6.625v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5a3.375 3.375 0 00-3.375-3.375H9.75'
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                  </button>
 
                   <div className='mt-6 flex items-center justify-center'>
                     <button
