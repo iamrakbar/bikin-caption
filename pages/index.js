@@ -5,7 +5,7 @@ import ConfettiExplosion from 'react-confetti-explosion';
 import { useForm } from 'react-hook-form';
 import { toast, Toaster } from 'react-hot-toast';
 
-import useCopyToClipboard from '../hooks/useCopyToCLipboard';
+import useCopyToClipboard from '../hooks/useCopyToClipboard';
 
 const largeProps = {
   force: 0.8,
