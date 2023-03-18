@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { Switch, Dialog, Transition } from '@headlessui/react';
 import ConfettiExplosion from 'react-confetti-explosion';
 import { useForm } from 'react-hook-form';
@@ -16,6 +16,7 @@ const largeProps = {
 };
 
 export default function Home() {
+  const resultRef = useRef(null);
   const [result, setResult] = useState();
   const [success, setSuccess] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -68,6 +69,7 @@ export default function Home() {
 
   const copyText = async (text) => {
     const success = await copy(text);
+
     if (success) {
       toast.success('Caption berhasil di copy!', {
         icon: '👏',
@@ -76,6 +78,14 @@ export default function Home() {
       toast.error('Caption gagal di copy!', {
         icon: '😢',
       });
+    }
+
+    if (resultRef.current !== null) {
+      const range = document.createRange();
+      range.selectNodeContents(resultRef.current);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
     }
   };
 
@@ -294,7 +304,10 @@ export default function Home() {
                   </Dialog.Title>
 
                   <div className='relative mt-4 flex rounded-xl border border-slate-600/10 bg-teal-50 p-6'>
-                    <span className='select-all text-sm leading-6 text-slate-700'>
+                    <span
+                      ref={resultRef}
+                      className='select-all text-sm leading-6 text-slate-700'
+                    >
                       {result}
                     </span>
                   </div>
